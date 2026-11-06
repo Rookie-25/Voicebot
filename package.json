@@ -1,0 +1,56 @@
+{
+  "name": "interview-voice-bot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=24.22.2 <25",
+    "npm": ">=11 <12"
+  },
+  "packageManager": "npm@11.19.1",
+  "scripts": {
+    "mcp:local:init": "node scripts/init-mcp-local.mjs",
+    "db:local:migrate": "npm exec --workspace @voice-bot/knowledge-mcp -- wrangler d1 migrations apply DB --local --persist-to ../../.local/state/knowledge-mcp",
+    "db:local:seed": "npm exec --workspace @voice-bot/knowledge-mcp -- wrangler d1 execute DB --local --persist-to ../../.local/state/knowledge-mcp --file ../../tests/fixtures/fictional-knowledge.sql",
+    "dev": "npm run dev --workspace @voice-bot/web",
+    "dev:gateway": "npm run dev --workspace @voice-bot/gateway",
+    "dev:knowledge": "npm run dev --workspace @voice-bot/knowledge-mcp",
+    "typecheck": "tsc -p tsconfig.json && tsc -p apps/web/tsconfig.json && tsc -p apps/gateway/tsconfig.json && tsc -p apps/knowledge-mcp/tsconfig.json",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "npm run build && vitest run",
+    "test:browser": "playwright test",
+    "build": "npm run build --workspace @voice-bot/web && npm run build --workspace @voice-bot/gateway && npm run build --workspace @voice-bot/knowledge-mcp && node scripts/check-artifacts.mjs",
+    "check": "npm run lint && npm run format:check && npm run typecheck && npm test"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261106.1",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.65.0",
+    "@testing-library/dom": "10.4.1",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.8",
+    "@types/node": "24.10.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.2.1",
+    "eslint": "10.14.0",
+    "jsdom": "31.0.0",
+    "miniflare": "5.20261104.0-beta",
+    "prettier": "3.9.10",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.72.1",
+    "vite": "8.3.6",
+    "vitest": "5.1.0",
+    "wrangler": "4.158.0"
+  },
+  "overrides": {
+    "minimatch@>=7 <11": "11.0.1"
+  }
+}

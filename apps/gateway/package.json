@@ -1,0 +1,16 @@
+{
+  "name": "@voice-bot/gateway",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --local --ip 127.0.0.1 --port 8787 --persist-to ../../.local/state/gateway",
+    "build": "wrangler deploy --dry-run --env production --outdir dist"
+  },
+  "dependencies": {
+    "zod": "4.6.7",
+    "@modelcontextprotocol/client": "2.4.0",
+    "@voice-bot/mcp-contracts": "*",
+    "@voice-bot/contracts": "*"
+  }
+}

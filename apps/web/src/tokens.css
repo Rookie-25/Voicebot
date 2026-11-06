@@ -1,0 +1,15 @@
+:root {
+  --background: #0b0d10;
+  --surface: #14171c;
+  --elevated: #1c2027;
+  --text: #f3f5f7;
+  --muted: #a6afbc;
+  --subtle: #949da9;
+  --accent: #65d6c1;
+  --error: #f2a7a7;
+  --line: #ffffff0c;
+  --line-strong: #ffffff15;
+  --font: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  --radius: 16px;
+  --duration: 160ms ease;
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@voice-bot/knowledge-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --local --ip 127.0.0.1 --port 8788 --persist-to ../../.local/state/knowledge-mcp",
+    "build": "wrangler deploy --dry-run --env production --outdir dist"
+  },
+  "dependencies": {
+    "zod": "4.6.7",
+    "@modelcontextprotocol/server": "2.4.0",
+    "@voice-bot/mcp-contracts": "*",
+    "agents": "0.33.0",
+    "@voice-bot/contracts": "*"
+  }
+}

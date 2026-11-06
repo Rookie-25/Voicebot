@@ -1,0 +1,8 @@
+.local/
+node_modules/
+**/dist/
+**/.wrangler/
+package-lock.json
+# Preserve the historical M0 reports and scripts as written.
+docs/milestone-0*.md
+scripts/*.ps1
