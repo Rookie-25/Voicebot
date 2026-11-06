@@ -1,6 +1,10 @@
-# M2B preview deployment plan — approval required
+# M2B preview deployment runbook — historical setup
 
-Prepared 2026-11-06. **Nothing in this runbook has been executed against Cloudflare.**
+Prepared 2026-11-06; authorized preview execution performed 2026-11-07 (India time).
+See [M2B-B verification](m2b-b-verification.md) for actual resources, proof, cleanup
+and the remaining Free CPU risk. **Do not replay database creation, migration,
+seed or probe activation against the completed preview.** The temporary probe code
+has been removed; the setup commands below are retained as historical instructions.
 M2A's official SDK client/server and private HTTP transport are retained. No LLM,
 speech, real candidate data, production deployment or paid resource is included.
 
@@ -330,11 +334,10 @@ npm.cmd exec --workspace @voice-bot/knowledge-mcp -- wrangler d1 delete voice-bo
 npm.cmd exec -- wrangler logout
 ```
 
-## Approval checkpoint
+## Authorization boundary after execution
 
-Local M2B-A preparation is authorized and delivered; cloud work is not. Approve
-M2B-B owner-controlled Cloudflare login, the two named preview Workers, one named preview D1 database,
-their preview secrets/binding, synthetic-only migration/seed, limited protocol and
-security probes, and probe removal? No paid plan, real candidate data, production
-deployment, M3/M4 or destructive resource cleanup is included. If Free CPU limits
-block proof, stop and report before requesting any paid upgrade.
+M2B-B preview deployment and probe retirement were authorized and executed. Remaining
+CPU profiling/Free-capacity validation must be reviewed before M3. No paid plan,
+real candidate data, production deployment, M3/M4 or destructive resource cleanup
+is authorized by this runbook. Never roll back to a probe-enabled historical
+version; use the final probe-free version recorded in the verification report.

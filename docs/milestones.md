@@ -33,24 +33,21 @@ deferred browser tests passed. C: then declined from 6.77 to 3.23 GiB, so the
 previously passing full suite was not repeated. No application code changed.
 See `m2a-verification.md` for dated results, historical evidence and limits.
 
-## M2B — pending explicit cloud authorization
+## M2B — deployed protocol/security/cleanup passed; Free CPU follow-up remains
 
-M2B-A local prerequisites are implemented: disabled-by-default preview operator
-probe, approved-only synthetic SQL, preview configuration and focused local tests.
-Production configuration and the established UI remain unchanged. No cloud command
-has run. See `m2b-a-verification.md` for actual results and remaining limitations.
-The core 55 focused tests passed. An additional unit/retained-health regression is
-deferred after C: sampled at 2.156 GiB; recover headroom before that small gate.
-M2B-B authentication/resource creation/deployment require separate explicit approval.
+M2B-A prepared the real SDK path and fixtures; the owner reported 60 preparation
+tests passing. Authorized M2B-B deployed the two preview Workers and used existing
+approved-only synthetic D1 data, without recreating/reseeding it. Fourteen real MCP
+cases, two concurrent checks and six operator checks passed. The temporary probe,
+its token/config and test suites were retired; fixture validation remains. Ten
+focused cleanup regression tests passed. No UI, dependency, paid-plan or production
+deployment change occurred. See `m2b-b-verification.md` for evidence and active URL.
 
-First prove the **deployed** official MCP client/server initialization, discovery,
-tool invocation, authorization and trace path against preview D1. The existing
-local-only diagnostics cannot be used unchanged in preview. Prepare and locally
-test a temporary preview-only authenticated probe and an approved-only synthetic
-seed before any cloud work. A binding alone is insufficient. The exact resource,
-permission, command and rollback plan is in `m2b-deployment-plan.md`. Authentication,
-deployment and resource changes remain unauthorized; paid upgrades require a
-separate decision. No deployed proof is claimed.
+Overall M2B-B is PARTIAL on performance readiness: measured CPU samples exceeded
+Free's nominal 10 ms despite successful requests/no observed resource-limit errors.
+Profile/optimize and remeasure before promising Free capacity. No upgrade is
+authorized, and M3/M4 do not start automatically. Owner local/production binding
+edits are preserved outside the milestone commit.
 
 ## M3–M6 — not started
 

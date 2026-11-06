@@ -1,5 +1,12 @@
 # M2B-A — local prerequisites and verification
 
+Historical preparation record. The owner subsequently reported the final 60/60
+preparation tests passing before `6a2824b`. [M2B-B](m2b-b-verification.md) now records
+actual deployed proof, probe retirement and CPU limitations. Temporary probe source
+and test files referenced below were removed after that proof; approved fixture
+validation remains in `tests/preview-fixture.test.ts`. This is not a claim that
+the historical 60 tests were rerun during deployment.
+
 2026-11-06. Local preparation is implemented and the core 55-test verification
 passed. An additional retained health regression is deferred for disk/memory
 headroom; recover headroom before the final small regression/deployment gate.

@@ -1,6 +1,23 @@
 # Security and privacy
 
-## Temporary M2B preview operator boundary
+## M2B-B deployed boundary and probe retirement
+
+Deployed proof confirms private knowledge access via scoped service capabilities,
+published fictional preview content and genuine SDK/HTTP binding calls. API settings
+confirm workers.dev/version URLs disabled on knowledge, no public routes/domains,
+and correct D1 identity. The public gateway retains its service key/binding but
+has no public MCP forwarding or inference endpoint. The temporary operator module,
+route/configuration and token were removed after proof. See
+[verification](m2b-b-verification.md) for the live test matrix and metrics limitations.
+
+Operator results and captured logs contain assertion/trace metadata only. Credentials
+were generated locally, uploaded via sanitized Wrangler stdin, and backed up only
+with Windows DPAPI under ignored D: state. No credential or authenticated header is
+committed. The removed probe's historical version must never be used as rollback.
+Free CPU capacity is not guaranteed: several measured samples exceed the nominal
+10 ms budget despite successful requests and no observed CPU-limit failures.
+
+## Temporary M2B preview operator boundary (historical; removed after proof)
 
 The `/ops/mcp-probe` implementation is disabled by default and rejects local and
 production environments even with a valid credential. Preview activation requires

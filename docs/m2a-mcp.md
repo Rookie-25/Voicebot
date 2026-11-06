@@ -3,8 +3,9 @@
 Final results, the historical disk failure and the subsequent successful browser
 closure are recorded in [M2A verification](m2a-verification.md). Local protocol
 proof is complete. Strict verification passes, but C: headroom remains fragile.
-[M2B deployment preparation](m2b-deployment-plan.md) now has locally verified
-M2B-A prerequisites; cloud authentication/deployment still require M2B-B approval.
+[M2B deployment](m2b-b-verification.md) has now proved the real private binding path
+in Cloudflare preview and retired its operator probe. Free CPU capacity still needs
+follow-up. The remainder of this document preserves historical M2A scope/evidence.
 
 No Cloudflare login, provisioning, deployment, paid operation, LLM, speech or M3
 work is part of this milestone. **A deployed end-to-end proof remains M2B.**

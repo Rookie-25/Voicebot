@@ -1,6 +1,15 @@
 # Architecture and boundaries
 
-## M2B-A local preview preparation
+## Current M2B-B deployment
+
+The real gateway SDK client -> private HTTP MCP Worker -> preview D1 path has passed
+deployed initialization/discovery/tool/security checks. The temporary operator HTTP
+probe and token have been removed. Both Workers retain their private binding and
+service credentials; the public browser remains the scripted M1 demo until M3/M4.
+No public arbitrary-tool endpoint exists. See [deployed evidence](m2b-b-verification.md)
+for exposure checks and the measured Free CPU risk requiring follow-up.
+
+## M2B-A local preview preparation (historical; probe retired)
 
 The temporary gateway `/ops/mcp-probe` is restricted to an explicitly enabled,
 one-hour-or-shorter preview UTC window and a separate operator credential. It

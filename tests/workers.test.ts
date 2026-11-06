@@ -58,6 +58,14 @@ describe('actual local Workers runtime', () => {
     expect(ApiErrorSchema.parse(await response.json()).error.code).toBe('NOT_IMPLEMENTED');
     expect((await gateway.dispatchFetch('http://localhost/api/v2/turn')).status).toBe(404);
   });
+  it('does not expose the retired operator probe', async () => {
+    const response = await gateway.dispatchFetch('http://localhost/ops/mcp-probe', {
+      method: 'POST',
+      body: JSON.stringify({ case: 'profile' }),
+    });
+    expect(response.status).toBe(404);
+    expect(await response.text()).not.toContain('traceId');
+  });
   it('keeps knowledge health and rejects an untrusted MCP Host', async () => {
     const response = await knowledge.dispatchFetch('http://localhost/healthz');
     expect(HealthResponseSchema.parse(await response.json()).service).toBe('knowledge-mcp');

@@ -28,7 +28,7 @@
         {
           "binding": "DB",
           "database_name": "voice-bot-knowledge-preview",
-          "database_id": "00000000-0000-0000-0000-000000000002",
+          "database_id": "a59e9f96-8e5a-470c-93b8-3d5de6cf4884",
           "migrations_dir": "migrations",
         },
       ],

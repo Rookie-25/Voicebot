@@ -1,8 +1,7 @@
 import { ApiErrorSchema, HealthResponseSchema } from '@voice-bot/contracts';
-import { handleM2bProbe, type PreviewProbeEnv } from './m2b-probe';
 export { McpDiagnostics } from './mcp-diagnostics';
 
-interface Env extends PreviewProbeEnv {
+interface Env {
   ASSETS?: Fetcher;
   KNOWLEDGE_MCP?: Fetcher;
 }
@@ -19,9 +18,7 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const path = new URL(request.url).pathname;
     let response: Response;
-    if (path === '/ops/mcp-probe') {
-      response = await handleM2bProbe(request, env);
-    } else if (path === '/healthz' && (request.method === 'GET' || request.method === 'HEAD')) {
+    if (path === '/healthz' && (request.method === 'GET' || request.method === 'HEAD')) {
       const health = HealthResponseSchema.parse({
         status: 'ok',
         service: 'gateway',

@@ -3,9 +3,13 @@
 A premium dark interview interface and Cloudflare-ready TypeScript foundation.
 The **frontend remains the M1 interface preview** with local scripted responses.
 No candidate biography, recording, playback or inference is active in the UI.
-M2A adds genuine authenticated MCP and D1 **locally** behind private Worker boundaries;
-the frontend does not call that service. Nothing has been deployed.
-See [M2A local MCP verification](docs/m2a-mcp.md).
+Public preview: https://voice-bot-gateway-preview.sagnikroy4002.workers.dev
+
+M2B proves genuine authenticated MCP across deployed private Worker bindings and
+preview D1. The temporary operator probe has been removed; the frontend does not
+call MCP yet. Free-plan CPU headroom still needs follow-up before public AI traffic.
+See [M2B deployed verification](docs/m2b-b-verification.md) and
+[M2A local protocol evidence](docs/m2a-mcp.md). M3/M4 are not implemented.
 
 ## Windows PowerShell quick start
 
