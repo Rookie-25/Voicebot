@@ -1,8 +1,10 @@
 # M2A — genuine MCP, local verification only
 
-Final results and the **failed disk-readiness gate** are recorded in
-[M2A verification](m2a-verification.md). Local protocol proof is complete; the
-environment is blocked for further heavy work. M2B remains unauthorized.
+Final results, the historical disk failure and the subsequent successful browser
+closure are recorded in [M2A verification](m2a-verification.md). Local protocol
+proof is complete. Strict verification passes, but C: headroom remains fragile.
+[M2B deployment preparation](m2b-deployment-plan.md) now has locally verified
+M2B-A prerequisites; cloud authentication/deployment still require M2B-B approval.
 
 No Cloudflare login, provisioning, deployment, paid operation, LLM, speech or M3
 work is part of this milestone. **A deployed end-to-end proof remains M2B.**
@@ -60,9 +62,10 @@ candidate/version relationships. SQL views constrain publication/approval/visibi
 `tests/fixtures/fictional-knowledge.sql` is **explicitly fictional synthetic data**.
 It includes two fictional subjects, draft/private/unapproved canaries and an
 unapproved variant. No real candidate facts are assumed. Production rejects
-synthetic versions even if ALLOW_SYNTHETIC_DATA is mistakenly true. Preview and
-production configuration default to UNCONFIGURED candidate/version and false
-fixture flags. D1 IDs in config are local placeholders, not actual cloud resources.
+synthetic versions even if ALLOW_SYNTHETIC_DATA is mistakenly true. At M2A handoff,
+preview and production defaulted to UNCONFIGURED candidate/version and false fixture
+flags. M2B-A now prepares fictional preview scope/fixtures with its operator probe
+disabled; production remains unchanged. D1 IDs are placeholders, not cloud resources.
 
 The local CLI migration and synthetic seed were executed with `--local`, persisting
 under `.local/state/knowledge-mcp`. Tests independently create isolated ephemeral

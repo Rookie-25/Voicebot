@@ -20,9 +20,9 @@
       "routes": [],
       "vars": {
         "APP_ENV": "preview",
-        "CANDIDATE_ID": "UNCONFIGURED",
-        "CONTENT_VERSION": "UNCONFIGURED",
-        "ALLOW_SYNTHETIC_DATA": "false",
+        "CANDIDATE_ID": "fictional-alex",
+        "CONTENT_VERSION": "fixture-v1",
+        "ALLOW_SYNTHETIC_DATA": "true",
       },
       "d1_databases": [
         {

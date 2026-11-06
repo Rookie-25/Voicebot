@@ -21,21 +21,36 @@ Completion evidence is recorded in `m1-verification.md`: full checks, 15 automat
 tests, four browser tests, local health smokes, screenshots and disk observations.
 No cloud authentication, deployment or provisioning is authorized in this milestone.
 
-## M2A — local implementation/protocol proof complete; disk readiness blocked
+## M2A — local implementation/protocol proof and browser closure complete
 
 Official SDK client/server 2.4.0 and Cloudflare agents 0.33.0 HTTP adapter are
 integrated with private service authentication and local D1. Synthetic fixtures
 are explicitly fictional. Protocol/security tests exercise real workerd bindings.
 29 tests and full lint/type/build checks passed. No deployed verification is claimed.
-The final environment check failed after C: fell below 2 GiB; no further builds or
-browser runs were started. See `m2a-verification.md` for results and limits.
+The original final environment check failed after C: fell below 2 GiB. After the
+user's Windows restart, strict verification passed all 14 checks and the four
+deferred browser tests passed. C: then declined from 6.77 to 3.23 GiB, so the
+previously passing full suite was not repeated. No application code changed.
+See `m2a-verification.md` for dated results, historical evidence and limits.
 
 ## M2B — pending explicit cloud authorization
 
+M2B-A local prerequisites are implemented: disabled-by-default preview operator
+probe, approved-only synthetic SQL, preview configuration and focused local tests.
+Production configuration and the established UI remain unchanged. No cloud command
+has run. See `m2b-a-verification.md` for actual results and remaining limitations.
+The core 55 focused tests passed. An additional unit/retained-health regression is
+deferred after C: sampled at 2.156 GiB; recover headroom before that small gate.
+M2B-B authentication/resource creation/deployment require separate explicit approval.
+
 First prove the **deployed** official MCP client/server initialization, discovery,
-tool invocation, authorization and trace path. Then add approved structured
-knowledge and protocol/schema/security tests. A binding alone is insufficient.
-Deployment and any cloud resources need explicit authorization before that proof.
+tool invocation, authorization and trace path against preview D1. The existing
+local-only diagnostics cannot be used unchanged in preview. Prepare and locally
+test a temporary preview-only authenticated probe and an approved-only synthetic
+seed before any cloud work. A binding alone is insufficient. The exact resource,
+permission, command and rollback plan is in `m2b-deployment-plan.md`. Authentication,
+deployment and resource changes remain unauthorized; paid upgrades require a
+separate decision. No deployed proof is claimed.
 
 ## M3–M6 — not started
 

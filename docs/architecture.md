@@ -1,5 +1,30 @@
 # Architecture and boundaries
 
+## M2B-A local preview preparation
+
+The temporary gateway `/ops/mcp-probe` is restricted to an explicitly enabled,
+one-hour-or-shorter preview UTC window and a separate operator credential. It
+accepts fixed diagnostic case IDs, not visitor questions or arbitrary MCP messages.
+It uses the existing official gateway SDK client over the private HTTP binding.
+Only sanitized assertions and correlation IDs are returned; approved content is
+never included. Committed configuration leaves it disabled. Production and local
+public routes cannot enable it. The local-only private RPC guard is unchanged.
+
+```mermaid
+flowchart LR
+  Operator[Authenticated operator] -->|temporary preview HTTPS probe| Gateway[Gateway: official MCP client]
+  Gateway -->|MCP Streamable HTTP over private service binding| Knowledge[Private knowledge MCP Worker]
+  Knowledge --> D1[Preview D1: approved fictional fixture]
+  Browser[Unchanged browser demo] --> Mock[Local scripted responses]
+```
+
+The preview configuration, approved-only SQL and two-Worker path are verified
+locally. No Cloudflare login or deployed verification has occurred. See
+[M2B-A verification](m2b-a-verification.md) and [deployment plan](m2b-deployment-plan.md).
+Remove the temporary module/dispatch/configuration after M2B-B proof; it is not
+the future public conversation endpoint. M3 text orchestration follows only after
+deployed MCP proof, with M4 voice after that, without adding infrastructure here.
+
 ## M2A local implementation
 
 The gateway now contains the official MCP client; the private knowledge Worker

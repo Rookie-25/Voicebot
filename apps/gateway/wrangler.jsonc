@@ -28,11 +28,20 @@
       "name": "voice-bot-gateway-preview",
       "workers_dev": true,
       "preview_urls": false,
+      "assets": {
+        "directory": "../web/dist",
+        "binding": "ASSETS",
+        "not_found_handling": "single-page-application",
+        "run_worker_first": ["/api/*", "/healthz", "/ops/mcp-probe"],
+      },
       "vars": {
         "APP_ENV": "preview",
         "LOCAL_MCP_DIAGNOSTICS": "false",
-        "CANDIDATE_ID": "UNCONFIGURED",
-        "CONTENT_VERSION": "UNCONFIGURED",
+        "CANDIDATE_ID": "fictional-alex",
+        "CONTENT_VERSION": "fixture-v1",
+        "M2B_PROBE_ENABLED": "false",
+        "M2B_PROBE_STARTS_AT": "UNCONFIGURED",
+        "M2B_PROBE_EXPIRES_AT": "UNCONFIGURED",
       },
       "services": [
         {

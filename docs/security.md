@@ -1,5 +1,36 @@
 # Security and privacy
 
+## Temporary M2B preview operator boundary
+
+The `/ops/mcp-probe` implementation is disabled by default and rejects local and
+production environments even with a valid credential. Preview activation requires
+explicit start/expiry UTC timestamps, a window no longer than one hour, fictional
+candidate/version scope, and a separate 32-byte random operator token encoded as
+64 lowercase hexadecimal characters. Native `node:crypto` `timingSafeEqual` compares
+fixed-size validated credentials under the existing `nodejs_compat` flag.
+
+Authentication precedes MCP client construction. Requests are POST-only, reject
+all browser Origins, have no CORS, require JSON, and are capped at 2 KiB. Body reads
+have a two-second deadline; the whole probe has a ten-second deadline capped by
+the absolute expiry. Cancellation propagates to the client/binding and discards
+late results. Only fixed test cases are accepted; no arbitrary credentials,
+candidate scope, URLs or MCP requests may be supplied by callers. Responses project
+only allowlisted metadata/checks, not tool output, approved text, hashes, JWTs,
+database rows or exception messages. Failed dependencies cannot pass a denial test.
+
+The official SDK, service capabilities, knowledge authorization and published views
+remain the MCP/data boundary. The preview SQL contains only approved public fictional
+rows; it cannot itself identify a Cloudflare environment. Upload safety depends on
+reviewed preview DB UUID/configuration and explicitly approved `--remote --env preview`
+commands. No automatic cloud seed script has been added.
+
+The operator token is a bearer credential replayable within the enabled window if
+stolen. There is no distributed probe quota; private read-only operations, a strong
+short-lived access window, bounded requests and operator-only use limit exposure.
+Do not expose it to the browser UI, enable HTTP debug logs or leave it enabled after
+proof. Remove its module, route, preview asset exception, vars and secret after
+verification; do not roll back to an enabled probe. No paid inference is authorized.
+
 ## Current M1 controls
 
 - No API keys or account credentials required; no cloud login or provisioning.
