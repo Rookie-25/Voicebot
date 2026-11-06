@@ -2,7 +2,8 @@ import type { ConversationState } from '@voice-bot/contracts';
 
 export interface Message {
   id: string;
-  role: 'visitor' | 'demo';
+  role: 'visitor' | 'assistant';
+  provenance?: string;
   text: string;
 }
 export interface Conversation {
@@ -13,11 +14,12 @@ export interface Conversation {
 }
 export type ConversationEvent =
   | { type: 'submit'; requestId: string; text: string }
-  | { type: 'resolve'; requestId: string; text: string }
-  | { type: 'reject'; requestId: string }
+  | { type: 'resolve'; requestId: string; text: string; provenance?: string }
+  | { type: 'reject'; requestId: string; message?: string }
   | { type: 'cancel' }
   | { type: 'reset' }
-  | { type: 'microphone-preview' };
+  | { type: 'speech'; status: 'listening' | 'speaking' | 'idle' }
+  | { type: 'notice'; message: string };
 
 export const initialConversation: Conversation = {
   status: 'idle',
@@ -46,7 +48,12 @@ export function conversationReducer(state: Conversation, event: ConversationEven
         activeRequestId: null,
         messages: [
           ...state.messages,
-          { id: `${event.requestId}-reply`, role: 'demo', text: event.text },
+          {
+            id: `${event.requestId}-reply`,
+            role: 'assistant',
+            text: event.text,
+            ...(event.provenance ? { provenance: event.provenance } : {}),
+          },
         ],
       };
     case 'reject':
@@ -55,7 +62,7 @@ export function conversationReducer(state: Conversation, event: ConversationEven
         ...state,
         status: 'error',
         activeRequestId: null,
-        notice: 'The preview could not finish. Please try your question again.',
+        notice: event.message ?? 'The answer could not finish. Please try your question again.',
       };
     case 'cancel':
       return {
@@ -66,38 +73,9 @@ export function conversationReducer(state: Conversation, event: ConversationEven
       };
     case 'reset':
       return { ...initialConversation };
-    case 'microphone-preview':
-      return {
-        ...state,
-        notice:
-          'Microphone recording is unavailable in this preview. Type a question or choose a suggestion below.',
-      };
+    case 'speech':
+      return state.status === 'processing' ? state : { ...state, status: event.status };
+    case 'notice':
+      return { ...state, notice: event.message };
   }
-}
-
-// These are interface messages, never candidate facts or approved answers.
-export function demoReply(question: string): string {
-  if (/project|build|technical/i.test(question))
-    return 'A project story belongs here: the context, the candidate’s contribution, and a verified outcome. This local demo shows the conversation flow; candidate-approved project details will be added separately.';
-  if (/style|team|work|challenge/i.test(question))
-    return 'This is where an approved working-style or challenge story will appear, with a relevant example and room for follow-up questions. This preview contains no candidate experiences.';
-  return 'Thanks for the question. A concise, candidate-approved answer will appear here in the finished experience. For now, this local demo lets you try asking, following up, and stopping a response.';
-}
-
-export function requestDemoReply(question: string, signal: AbortSignal): Promise<string> {
-  return new Promise((resolve, reject) => {
-    if (signal.aborted) {
-      reject(new DOMException('Cancelled', 'AbortError'));
-      return;
-    }
-    const abort = () => {
-      window.clearTimeout(timer);
-      reject(new DOMException('Cancelled', 'AbortError'));
-    };
-    const timer = window.setTimeout(() => {
-      signal.removeEventListener('abort', abort);
-      resolve(demoReply(question));
-    }, 950);
-    signal.addEventListener('abort', abort, { once: true });
-  });
 }

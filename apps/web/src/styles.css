@@ -874,3 +874,47 @@ textarea::placeholder {
     scroll-behavior: auto !important;
   }
 }
+.audio-preferences {
+  margin-top: 16px;
+  color: var(--text-secondary, #a6afbc);
+  font-size: 12px;
+}
+.audio-preferences summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.preference-fields {
+  display: grid;
+  gap: 12px;
+  padding: 12px 0;
+}
+.preference-fields label {
+  display: grid;
+  gap: 8px;
+}
+.preference-fields select {
+  width: 100%;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 8px;
+  border: 1px solid #343b44;
+  border-radius: 8px;
+  background: #14171c;
+  color: #f3f5f7;
+}
+.preference-fields .speech-consent {
+  display: flex;
+  align-items: flex-start;
+  line-height: 1.6;
+}
+.speech-consent input {
+  min-width: 24px;
+  min-height: 24px;
+  accent-color: #65d6c1;
+}
+.toolbar-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}

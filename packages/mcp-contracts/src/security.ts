@@ -19,15 +19,26 @@ function decode(value: string): Uint8Array<ArrayBuffer> {
     char.charCodeAt(0),
   );
 }
+const keys = new Map<string, Promise<CryptoKey>>();
 async function key(secret: string) {
   if (secret.length < 32) throw new McpFailure('UNAVAILABLE');
-  return crypto.subtle.importKey(
+  const existing = keys.get(secret);
+  if (existing) return existing;
+  if (keys.size >= 4) keys.delete(keys.keys().next().value!);
+  const imported = crypto.subtle.importKey(
     'raw',
     encoder.encode(secret),
     { name: 'HMAC', hash: 'SHA-256' },
     false,
     ['sign', 'verify'],
   );
+  keys.set(secret, imported);
+  try {
+    return await imported;
+  } catch (error) {
+    keys.delete(secret);
+    throw error;
+  }
 }
 export async function signServiceToken(claims: ServiceClaims, secret: string): Promise<string> {
   const checked = ServiceClaims.parse(claims);

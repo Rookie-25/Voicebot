@@ -14,7 +14,7 @@ export function ConversationPanel({ conversation }: { conversation: Conversation
       <div className="panel-heading">
         <h2 id="conversation-heading">Conversation</h2>
         <span>
-          <span className="tiny-dot" /> Local demo
+          <span className="tiny-dot" /> Approved knowledge
         </span>
       </div>
       <div
@@ -34,12 +34,12 @@ export function ConversationPanel({ conversation }: { conversation: Conversation
             </div>
             <div>
               <div className="message-byline">
-                Your interview representative <span>DEMO</span>
+                Your interview representative <span>AI REPRESENTATION</span>
               </div>
               <p>A little curiosity goes a long way.</p>
               <p className="muted">
-                Ask about background, projects, or working style. Try a question below to explore
-                this interface preview.
+                Ask about approved background, projects, or working style. You can type or dictate,
+                then review your question before sending.
               </p>
             </div>
           </div>
@@ -48,14 +48,15 @@ export function ConversationPanel({ conversation }: { conversation: Conversation
             <article
               key={message.id}
               className={`message message--${message.role}`}
-              aria-label={message.role === 'visitor' ? 'Your question' : 'Demo response'}
+              aria-label={message.role === 'visitor' ? 'Your question' : 'Interview response'}
             >
               <div className="message-byline">
                 {message.role === 'visitor' ? (
                   'You'
                 ) : (
                   <>
-                    Interface preview <span>DEMO RESPONSE</span>
+                    Interview representative{' '}
+                    <span>{message.provenance ?? 'APPROVED RESPONSE'}</span>
                   </>
                 )}
               </div>
@@ -68,7 +69,7 @@ export function ConversationPanel({ conversation }: { conversation: Conversation
             <span />
             <span />
             <span />
-            <span className="thinking-label">Preparing a demo response</span>
+            <span className="thinking-label">Finding an approved answer</span>
           </div>
         )}
       </div>

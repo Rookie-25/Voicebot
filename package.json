@@ -19,6 +19,8 @@
     "dev": "npm run dev --workspace @voice-bot/web",
     "dev:gateway": "npm run dev --workspace @voice-bot/gateway",
     "dev:knowledge": "npm run dev --workspace @voice-bot/knowledge-mcp",
+    "dev:interview:gateway": "npm exec --workspace @voice-bot/gateway -- wrangler dev --local --config wrangler.local.jsonc --ip 127.0.0.1 --port 8787 --persist-to ../../.local/state/interview-gateway",
+    "dev:interview:knowledge": "npm exec --workspace @voice-bot/knowledge-mcp -- wrangler dev --local --config wrangler.interview.local.jsonc --ip 127.0.0.1 --port 8788 --persist-to ../../.local/state/interview-knowledge",
     "typecheck": "tsc -p tsconfig.json && tsc -p apps/web/tsconfig.json && tsc -p apps/gateway/tsconfig.json && tsc -p apps/knowledge-mcp/tsconfig.json",
     "lint": "eslint . --max-warnings 0",
     "format": "prettier --write .",

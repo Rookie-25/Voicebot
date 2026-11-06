@@ -14,7 +14,8 @@ export const ProfileInput = z.strictObject({
 });
 export const SearchInput = z.strictObject({
   version: Identifier,
-  query: z.string().trim().min(1).max(500),
+  // Empty text intentionally browses at most five approved public items.
+  query: z.string().trim().max(500),
   kinds: z.array(Kind).min(1).max(4),
   limit: z.number().int().min(1).max(5),
 });

@@ -1,5 +1,33 @@
 # Security and privacy
 
+## M3/M4 local controls (not deployed)
+
+The turn API now validates strict JSON, Origin, request size and deadlines. Signed
+HttpOnly SameSite sessions and bounded signed follow-up context bind candidate,
+version and session. An atomic SQLite quota actor reserves $0.05 per admission,
+with a $1 UTC-day ceiling, two concurrent leases and session/IP-hash limits.
+This is application admission control, not an OpenAI billing guarantee. Failed
+attempts retain their reservation. The actor stores no raw IP, question or audio.
+
+The model selects only an allowlisted approved answer ID/null. Exact answer text
+is re-fetched through official private MCP and validated for approval, scope,
+version and evidence. No model-written personal claims are spoken. Incorrect
+selection and prompt injection remain residual risks; unsupported prompts receive
+a fixed fallback. Provider errors are sanitized, requests bounded, retries disabled.
+The deterministic selector is local-only; preview rejects the test flag and fails
+closed without live provider/session/budget configuration.
+
+Browser-native recognition requires explicit consent and a user gesture. The
+browser vendor may process microphone audio. Synthesis uses an available synthetic
+voice, never a clone. This app does not retain recordings or log raw transcripts;
+`store:false` is not a promise of zero provider retention. The recognition service
+and OpenAI processing must be disclosed before real candidate publication.
+
+Tests verify these local controls, including timeout/access failures and real MCP
+transport. Actual cloud quotas, provider access, CPU limits and real audio-device
+operation still require live verification. Turnstile is deferred: authoritative
+quotas limit admission now, but an attacker can exhaust the small shared budget.
+
 ## M2B-B deployed boundary and probe retirement
 
 Deployed proof confirms private knowledge access via scoped service capabilities,

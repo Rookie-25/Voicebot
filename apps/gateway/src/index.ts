@@ -1,7 +1,9 @@
 import { ApiErrorSchema, HealthResponseSchema } from '@voice-bot/contracts';
+import { appConfig, handleTurn, type TurnEnv } from './turn';
 export { McpDiagnostics } from './mcp-diagnostics';
+export { InterviewBudget } from './budget';
 
-interface Env {
+interface Env extends TurnEnv {
   ASSETS?: Fetcher;
   KNOWLEDGE_MCP?: Fetcher;
 }
@@ -9,7 +11,7 @@ interface Env {
 const headers = {
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+  'Permissions-Policy': 'camera=(), microphone=(self), geolocation=()',
   'Content-Security-Policy':
     "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; media-src 'self' blob:; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",
 };
@@ -18,7 +20,11 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const path = new URL(request.url).pathname;
     let response: Response;
-    if (path === '/healthz' && (request.method === 'GET' || request.method === 'HEAD')) {
+    if (path === '/api/v1/config' && request.method === 'GET') {
+      response = Response.json(appConfig(env));
+    } else if (path === '/api/v1/turn') {
+      response = await handleTurn(request, env);
+    } else if (path === '/healthz' && (request.method === 'GET' || request.method === 'HEAD')) {
       const health = HealthResponseSchema.parse({
         status: 'ok',
         service: 'gateway',

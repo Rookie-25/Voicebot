@@ -1,0 +1,24 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "voice-bot-knowledge-local",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-06",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [],
+  "vars": {
+    "APP_ENV": "local",
+    "CANDIDATE_ID": "fictional-alex",
+    "CONTENT_VERSION": "fixture-v1",
+    "ALLOW_SYNTHETIC_DATA": "true",
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "interview-local-approved",
+      "database_id": "00000000-0000-0000-0000-000000000001",
+      "migrations_dir": "migrations",
+    },
+  ],
+}

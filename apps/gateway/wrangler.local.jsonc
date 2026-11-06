@@ -1,0 +1,28 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "voice-bot-gateway-local",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-06",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "assets": {
+    "directory": "../web/dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*", "/healthz"],
+  },
+  "vars": {
+    "APP_ENV": "local",
+    "LOCAL_TEST_PROVIDER": "true",
+    "LIVE_AI_ENABLED": "false",
+    "LLM_MODEL": "gpt-5.6-terra",
+    "DAILY_BUDGET_CENTS": "100",
+    "CONTENT_MODE": "fictional",
+    "CANDIDATE_ID": "fictional-alex",
+    "CONTENT_VERSION": "fixture-v1",
+    "LOCAL_MCP_DIAGNOSTICS": "false",
+  },
+  "services": [{ "binding": "KNOWLEDGE_MCP", "service": "voice-bot-knowledge-local" }],
+  "durable_objects": { "bindings": [{ "name": "BUDGET", "class_name": "InterviewBudget" }] },
+  "migrations": [{ "tag": "local-budget-v1", "new_sqlite_classes": ["InterviewBudget"] }],
+}

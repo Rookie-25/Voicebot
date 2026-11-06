@@ -49,7 +49,20 @@ Profile/optimize and remeasure before promising Free capacity. No upgrade is
 authorized, and M3/M4 do not start automatically. Owner local/production binding
 edits are preserved outside the milestone commit.
 
-## M3–M6 — not started
+## Accelerated M3/M4 — local verification passed; live activation awaits key
+
+Prepared real approved-answer text API, minimal OpenAI selector, atomic quota
+actor, signed sessions/context, API-connected UI and browser speech controls.
+Closure passed 48 focused and eight lightweight regression tests serially, strict types, lint, selected formatting,
+frontend/Worker dry-run builds and credential scan. Two focused Edge journeys passed:
+actual local text -> private MCP -> approved D1 with follow-up, and separately
+emulated speech review/playback controls. Real microphone/audio-device operation is
+unverified. Preview has no OpenAI key; owner requested local verification first.
+Quota actor was exercised locally, not provisioned in cloud. No deployment or paid
+inference occurred. Public URL remains the previous scripted demo.
+See `m3-m4-implementation.md`; do not call the assessment submission-ready.
+
+## M3–M6 scope
 
 M3: approved-answer orchestration and guardrails. M4: real synthetic voice input /
 output. M5: quotas, hardening and instrumentation. M6: public release verification.

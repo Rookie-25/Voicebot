@@ -32,6 +32,9 @@ export const ApiErrorSchema = z.strictObject({
       'METHOD_NOT_ALLOWED',
       'INVALID_REQUEST',
       'UNAVAILABLE',
+      'FORBIDDEN',
+      'RATE_LIMITED',
+      'TIMEOUT',
     ]),
     message: z.string().min(1).max(300),
     requestId: RequestIdSchema,
@@ -48,3 +51,27 @@ export const HealthResponseSchema = z.strictObject({
   mode: z.enum(['skeleton', 'mcp']),
 });
 export type HealthResponse = z.infer<typeof HealthResponseSchema>;
+
+export const TurnInputSchema = z.strictObject({
+  question: z.string().trim().min(1).max(2000),
+  length: z.enum(['concise', 'standard']).default('concise'),
+  context: z.string().max(3000).optional(),
+});
+export type TurnInput = z.infer<typeof TurnInputSchema>;
+export const TurnResponseSchema = z.strictObject({
+  requestId: RequestIdSchema,
+  answer: z.string().min(1).max(900),
+  answerId: z.string().max(80).nullable(),
+  contentVersion: z.string().max(80),
+  fictional: z.boolean(),
+  provider: z.enum(['openai', 'test']),
+  grounded: z.boolean(),
+  context: z.string().max(3000),
+  followUpAvailable: z.boolean(),
+});
+export type TurnResponse = z.infer<typeof TurnResponseSchema>;
+export const AppConfigSchema = z.strictObject({
+  available: z.boolean(),
+  fictional: z.boolean(),
+  provider: z.enum(['openai', 'test', 'disabled']),
+});

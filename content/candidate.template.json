@@ -1,0 +1,24 @@
+{
+  "candidateId": "candidate-pending",
+  "version": "candidate-v1",
+  "synthetic": false,
+  "review": { "approved": false, "reviewedBy": "", "reviewedAt": "" },
+  "facts": [{ "id": "background", "section": "background", "statement": "", "approved": false }],
+  "projects": [{ "id": "project", "title": "", "summary": "", "approved": false }],
+  "stories": [],
+  "evidence": [
+    { "id": "resume", "label": "Owner-provided resume", "excerpt": "", "approved": false }
+  ],
+  "answers": [
+    {
+      "id": "intro",
+      "title": "Introduction",
+      "summary": "",
+      "short": "",
+      "standard": "",
+      "evidenceIds": ["resume"],
+      "followUps": [],
+      "approved": false
+    }
+  ]
+}

@@ -36,10 +36,18 @@
       },
       "vars": {
         "APP_ENV": "preview",
+        "LIVE_AI_ENABLED": "false",
+        "LLM_MODEL": "gpt-5.6-terra",
+        "DAILY_BUDGET_CENTS": "100",
+        "CONTENT_MODE": "fictional",
         "LOCAL_MCP_DIAGNOSTICS": "false",
         "CANDIDATE_ID": "fictional-alex",
         "CONTENT_VERSION": "fixture-v1",
       },
+      "durable_objects": {
+        "bindings": [{ "name": "BUDGET", "class_name": "InterviewBudget" }],
+      },
+      "migrations": [{ "tag": "interview-budget-v1", "new_sqlite_classes": ["InterviewBudget"] }],
       "services": [
         {
           "binding": "KNOWLEDGE_MCP",

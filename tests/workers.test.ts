@@ -15,6 +15,7 @@ describe('actual local Workers runtime', () => {
         scriptPath: resolve('apps/gateway/dist/index.js'),
         compatibilityDate: '2026-11-06',
         compatibilityFlags: ['nodejs_compat'],
+        bindings: { APP_ENV: 'preview', LOCAL_TEST_PROVIDER: 'true', LIVE_AI_ENABLED: 'false' },
         host: '127.0.0.1',
         port: 0,
       }),
@@ -40,7 +41,7 @@ describe('actual local Workers runtime', () => {
     expect(HealthResponseSchema.parse(await response.json()).service).toBe('gateway');
     expect(response.headers.get('cache-control')).toBe('no-store');
     expect(response.headers.get('content-security-policy')).toContain("frame-ancestors 'none'");
-    expect(response.headers.get('permissions-policy')).toContain('microphone=()');
+    expect(response.headers.get('permissions-policy')).toContain('microphone=(self)');
   });
   it('supports HEAD and rejects health mutations', async () => {
     expect(
@@ -54,9 +55,13 @@ describe('actual local Workers runtime', () => {
     const response = await gateway.dispatchFetch('http://localhost/api/v1/turn', {
       method: 'POST',
     });
-    expect(response.status).toBe(501);
-    expect(ApiErrorSchema.parse(await response.json()).error.code).toBe('NOT_IMPLEMENTED');
+    expect(response.status).toBe(503);
+    expect(ApiErrorSchema.parse(await response.json()).error.code).toBe('UNAVAILABLE');
     expect((await gateway.dispatchFetch('http://localhost/api/v2/turn')).status).toBe(404);
+  });
+  it('ignores the deterministic provider flag outside local mode', async () => {
+    const response = await gateway.dispatchFetch('http://localhost/api/v1/config');
+    expect(await response.json()).toMatchObject({ available: false, provider: 'disabled' });
   });
   it('does not expose the retired operator probe', async () => {
     const response = await gateway.dispatchFetch('http://localhost/ops/mcp-probe', {

@@ -1,15 +1,19 @@
 # Persona — AI interview voice bot
 
 A premium dark interview interface and Cloudflare-ready TypeScript foundation.
-The **frontend remains the M1 interface preview** with local scripted responses.
-No candidate biography, recording, playback or inference is active in the UI.
+Local M3/M4 text/MCP/D1, follow-ups, quotas and browser controls are verified.
+Live activation awaits the owner's securely entered OpenAI key and cloud smoke
+tests. The owner approved the capped setup; public inference is disabled. See
+[implementation and exact resume steps](docs/m3-m4-implementation.md).
+The **deployed frontend remains the M1 interface preview** with local scripted responses.
+No live AI or speech is active on the public URL yet.
 Public preview: https://voice-bot-gateway-preview.sagnikroy4002.workers.dev
 
 M2B proves genuine authenticated MCP across deployed private Worker bindings and
 preview D1. The temporary operator probe has been removed; the frontend does not
 call MCP yet. Free-plan CPU headroom still needs follow-up before public AI traffic.
 See [M2B deployed verification](docs/m2b-b-verification.md) and
-[M2A local protocol evidence](docs/m2a-mcp.md). M3/M4 are not implemented.
+[M2A local protocol evidence](docs/m2a-mcp.md). Local M3/M4 uses explicitly fictional content.
 
 ## Windows PowerShell quick start
 
@@ -17,7 +21,10 @@ See [M2B deployed verification](docs/m2b-b-verification.md) and
 Set-Location -LiteralPath 'D:\Projects\voice-bot'
 . .\scripts\dev-env.ps1
 .\scripts\verify-env.ps1 -Strict
-npm.cmd ci --offline=false
+.\scripts\init-interview-local.ps1
+# Separate initialized terminals:
+npm.cmd run dev:interview:knowledge
+npm.cmd run dev:interview:gateway
 npm.cmd run dev
 ```
 
@@ -26,10 +33,12 @@ Never install global packages. The portable Node runtime, npm cache, temporary
 files, Vite cache, browser artifacts and local state stay on D:. The npm cache in
 `.npmrc` is intentionally specific to this Windows workspace; CI overrides it.
 
-The UI supports questions, follow-ups, cancel/Escape, reset, sample questions,
-and an audio preference preview. The microphone button explains the unavailable
-recording capability and focuses text input. No microphone permission is requested.
-Audio preference is in-memory only; it does not play sound.
+The local UI supports typed questions, signed follow-ups, concise/standard approved
+answers, cancel/Escape and reset. It clearly labels the deterministic test selector;
+this is not live AI. Enable browser speech processing in Audio preferences for
+dictation, review the transcript, then ask. Speech output uses an available synthetic
+browser voice with stop/replay controls. Recognition support varies by browser and
+may involve vendor processing. Real microphone/audio-device operation needs manual testing.
 
 ## Commands
 
@@ -49,7 +58,8 @@ If Edge is unavailable, do not install browser binaries without reviewing disk
 space and necessity. Linux browser tests need a separately prepared Chromium;
 ordinary CI runs unit/component/runtime tests and builds without a browser.
 
-Start the Worker skeletons in separate terminals **after building the frontend**:
+The isolated interview commands above are recommended. Generic legacy Worker
+commands remain available for development **after building the frontend**:
 
 ```powershell
 npm.cmd run dev:knowledge
@@ -60,8 +70,8 @@ Invoke-RestMethod 'http://127.0.0.1:8788/healthz'
 ```
 
 Both commands use local Workers runtime emulation, loopback listeners, and D:
-persistence. The gateway serves the built frontend and reserves `/api/v1/*` with
-honest `501 NOT_IMPLEMENTED` errors. M2A's private knowledge `/mcp` requires internal
+persistence. The gateway serves the built frontend; `/api/v1/turn` fails closed
+without configured provider, session and quota prerequisites. Private `/mcp` requires internal
 service authentication and a canonical Host; do not expose it to browsers. Tests
 exercise the real MCP client and server. Its `/healthz` is process health only.
 
@@ -69,9 +79,9 @@ exercise the real MCP client and server. Its `/healthz` is process health only.
 
 | Location             | Responsibility                                                 |
 | -------------------- | -------------------------------------------------------------- |
-| `apps/web`           | React/Vite, CSS tokens, UI state machine, local demo adapter   |
-| `apps/gateway`       | Public Worker, security headers, health, reserved API prefix   |
-| `apps/knowledge-mcp` | Independently deployable private Worker skeleton               |
+| `apps/web`           | React/Vite, UI state machine, API client, browser speech       |
+| `apps/gateway`       | Public Worker, grounded turn API, sessions and quotas          |
+| `apps/knowledge-mcp` | Private official MCP server and approved D1 retrieval          |
 | `packages/contracts` | Strict Zod contracts and inferred TypeScript types             |
 | `tests`              | Contract, state-machine, Worker runtime and browser tests      |
 | `scripts`            | Environment safety, portable tools, artifact checks            |
@@ -83,9 +93,9 @@ boundaries remain explicit. No external fonts, icon library, heavy 3D or UI kit.
 
 ## Publication
 
-Local work only. Do not authenticate, provision, or deploy without explicit
-approval. See [deployment instructions](docs/deployment.md). Keep the future Git
-repository private. Inspect staged content; never commit credentials or recordings.
+Preview infrastructure exists. Capped preview AI activation is approved but awaits
+secure credentials and live verification. No production deployment or paid plan is
+authorized. Keep candidate material private; never commit credentials or recordings.
 
 ## Documentation
 
@@ -94,6 +104,5 @@ repository private. Inspect staged content; never commit credentials or recordin
 - [Milestones](docs/milestones.md)
 - [M0 environment setup](docs/milestone-0.md)
 
-Next: M2 must prove a real deployed MCP client/server initialization, capability
-discovery and tool call before substantial agent functionality. It requires new
-authorization; M1 does not implement or simulate that protocol.
+Next: enter the OpenAI key through Wrangler, activate the approved preview cap,
+verify real inference and perform owner-operated microphone/playback testing.

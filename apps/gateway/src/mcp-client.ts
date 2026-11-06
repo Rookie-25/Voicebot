@@ -44,7 +44,8 @@ export async function connectKnowledge(options: McpClientOptions) {
       const request = new Request(input, init);
       let method = request.method === 'GET' ? 'stream-open' : 'unknown';
       if (request.method === 'POST') {
-        const body: unknown = await request.clone().json();
+        const body: unknown =
+          typeof init?.body === 'string' ? JSON.parse(init.body) : await request.clone().json();
         if (body && typeof body === 'object' && 'method' in body && typeof body.method === 'string')
           method = body.method;
       }
@@ -123,6 +124,8 @@ export async function connectKnowledge(options: McpClientOptions) {
         );
         if ('isError' in result && result.isError) {
           const failure = FailureOutput.safeParse(result.structuredContent);
+          if (failure.success && failure.data.traceId !== options.traceId)
+            throw new McpFailure('PROTOCOL_ERROR');
           throw new McpFailure(failure.success ? failure.data.code : 'INVALID_INPUT');
         }
         const output = toolOutputs[name].parse(result.structuredContent);
