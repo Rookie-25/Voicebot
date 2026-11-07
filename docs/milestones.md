@@ -51,6 +51,11 @@ edits are preserved outside the milestone commit.
 
 ## Accelerated M3/M4 — local verification passed; live activation awaits key
 
+Update: key and session are now proper preview secrets, updated Workers/frontend
+and SQLite quotas deployed. Two live requests failed on OpenAI HTTP 429; inference
+was disabled using a verified new M3/M4 version. C: also fell below 2 GiB. See
+`m3-m4-live-activation.md`; provider access and public voice proof remain blocked.
+
 Prepared real approved-answer text API, minimal OpenAI selector, atomic quota
 actor, signed sessions/context, API-connected UI and browser speech controls.
 Closure passed 48 focused and eight lightweight regression tests serially, strict types, lint, selected formatting,

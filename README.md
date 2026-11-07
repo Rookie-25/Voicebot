@@ -2,16 +2,17 @@
 
 A premium dark interview interface and Cloudflare-ready TypeScript foundation.
 Local M3/M4 text/MCP/D1, follow-ups, quotas and browser controls are verified.
-Live activation awaits the owner's securely entered OpenAI key and cloud smoke
-tests. The owner approved the capped setup; public inference is disabled. See
+The updated preview frontend/API and quota namespace are deployed; OpenAI returned
+HTTP 429 during live smoke tests, so public inference is disabled. See
+[live activation evidence and blockers](docs/m3-m4-live-activation.md) and
 [implementation and exact resume steps](docs/m3-m4-implementation.md).
-The **deployed frontend remains the M1 interface preview** with local scripted responses.
-No live AI or speech is active on the public URL yet.
+The deployed frontend uses the genuine API, with no scripted AI fallback.
+Live responses and physical speech-device operation remain unverified.
 Public preview: https://voice-bot-gateway-preview.sagnikroy4002.workers.dev
 
 M2B proves genuine authenticated MCP across deployed private Worker bindings and
-preview D1. The temporary operator probe has been removed; the frontend does not
-call MCP yet. Free-plan CPU headroom still needs follow-up before public AI traffic.
+preview D1. The temporary operator probe has been removed; the new turn API invokes
+MCP privately. Free-plan CPU headroom still needs follow-up before public AI traffic.
 See [M2B deployed verification](docs/m2b-b-verification.md) and
 [M2A local protocol evidence](docs/m2a-mcp.md). Local M3/M4 uses explicitly fictional content.
 
@@ -104,5 +105,5 @@ authorized. Keep candidate material private; never commit credentials or recordi
 - [Milestones](docs/milestones.md)
 - [M0 environment setup](docs/milestone-0.md)
 
-Next: enter the OpenAI key through Wrangler, activate the approved preview cap,
-verify real inference and perform owner-operated microphone/playback testing.
+Next: resolve OpenAI HTTP 429 and disk headroom, verify live capped inference and
+perform owner-operated microphone/playback testing. Do not restore historical probes.

@@ -1,5 +1,11 @@
 # Accelerated M3/M4 implementation — local verification passed
 
+Latest: preview infrastructure and updated UI/API are deployed, but provider HTTP
+429 blocked live answers. Inference is disabled. See
+[live activation evidence](m3-m4-live-activation.md) for actual serving versions,
+quota/secret verification, CPU samples and owner actions. The closure snapshot
+below records the earlier local milestone and is not current cloud state.
+
 2026-11-07 closure: **48/48 focused Vitest tests passed across eight files**, serially,
 against freshly compiled Workers. TypeScript, lint, selected-source formatting,
 frontend build, both Worker dry-run builds and frontend credential scan passed.

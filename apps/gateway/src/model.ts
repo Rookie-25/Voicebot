@@ -68,7 +68,6 @@ export function openAiSelector(
             body,
             signal: providerSignal,
           });
-          if (!response.ok) throw new Error('Model service unavailable');
           const text = await readBoundedBody(
             new Request('https://response.invalid', {
               method: 'POST',
@@ -78,6 +77,29 @@ export function openAiSelector(
             32768,
             providerSignal,
           );
+          if (!response.ok) {
+            let code = 'other';
+            try {
+              const parsed = z
+                .object({ error: z.object({ code: z.string().nullable() }) })
+                .parse(JSON.parse(text));
+              if (
+                [
+                  'invalid_api_key',
+                  'insufficient_quota',
+                  'model_not_found',
+                  'rate_limit_exceeded',
+                  'unsupported_value',
+                  'permission_denied',
+                ].includes(parsed.error.code ?? '')
+              )
+                code = parsed.error.code!;
+            } catch {
+              /* Never log raw provider error text. */
+            }
+            console.warn(JSON.stringify({ event: 'model.failure', status: response.status, code }));
+            throw new Error('Model service unavailable');
+          }
           const payload = z
             .object({
               choices: z
